@@ -1,0 +1,10 @@
+{
+  "name": "safe-google-sheet-form",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static website that sends validated submissions to Google Apps Script and then to Google Sheets.",
+  "scripts": {
+    "preview": "npx http-server public -p 3000 -c-1"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Registration Form</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <header class="form-header">
+        <h1>Registration Form</h1>
+        <p>Please fill out the details below. All fields marked with an asterisk are required.</p>
+      </header>
+
+      <form
+        action="https://docs.google.com/forms/d/e/1FAIpQLSeXtkblcLxjJjrnSXMPjrfXLRHpoS1W6RxlvOIcNPr0-gq-gQ/formResponse"
+        method="POST"
+        target="_self"
+      >
+        <div class="form-group">
+          <label for="email" class="required">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="entry.381279841"
+            placeholder="e.g., test@testmail.com"
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName" class="required">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="entry.175671428"
+              placeholder="e.g., John"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="lastName" class="required">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="entry.859895653"
+              placeholder="e.g., De Graef"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nationality" class="required">Nationality</label>
+            <input
+              type="text"
+              id="nationality"
+              name="entry.1822373569"
+              placeholder="e.g., Belgian"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="dob" class="required">Date of Birth</label>
+            <input type="date" id="dob" name="entry.1874034680" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="institution" class="required">University / Institution</label>
+          <input
+            type="text"
+            id="institution"
+            name="entry.476695610"
+            placeholder="e.g., KU Leuven"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="profession" class="required">Degree / Profession</label>
+          <input
+            type="text"
+            id="profession"
+            name="entry.489203780"
+            placeholder="e.g., Professor / Student"
+            required
+          />
+        </div>
+
+        <div class="checkbox-group">
+          <input
+            type="checkbox"
+            id="agreement"
+            name="entry.679601419"
+            value="I agree and I am aware of the payment process"
+            required
+          />
+          <label for="agreement" class="required">
+            I agree to the terms and conditions and I am aware of the payment process.
+          </label>
+        </div>
+
+        <button type="submit">Submit Registration</button>
+      </form>
+    </div>
+  </body>
+</html>
