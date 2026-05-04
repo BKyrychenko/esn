@@ -274,6 +274,21 @@
         cursor: pointer;
       }
 
+      .other-input-wrap {
+        margin-top: 0.75rem;
+        display: none;
+      }
+
+      .other-input-wrap.visible {
+        display: block;
+      }
+
+      .inline-links a {
+        color: var(--esn-blue);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
       button[type="submit"] {
         width: 100%;
         padding: 1rem;
@@ -464,7 +479,7 @@
               <label for="host-other">Other</label>
             </div>
 
-            <div class="form-group" style="margin-top: 0.75rem;">
+            <div class="form-group other-input-wrap" id="hostOtherWrap">
               <input
                 type="text"
                 id="hostOtherText"
@@ -477,10 +492,34 @@
           <div class="form-group">
             <label for="proofLink" class="required">Link with proof of exchange</label>
             <p
+              class="inline-links"
               style="margin-bottom: 0.75rem; color: var(--muted); font-size: 0.95rem; line-height: 1.5;"
             >
-              Please provide a link to a proof document. You can use services like Imgur,
-              WeTransfer, Photobox or ImgBB.
+              To make the ESNcard online we need to be sure that you are an International
+              Student in the Kempen (Geel, Turnhout or Vorselaar), therefore we require you
+              to upload a proof so we can proceed with your card. For example: A print
+              screen of the confirmation/acceptance email is enough. Please provide a link
+              with such document. You can use upload services like
+              <a href="https://imgur.com/upload" target="_blank" rel="noopener noreferrer">
+                https://imgur.com/upload
+              </a>
+              |
+              <a href="https://wetransfer.com/" target="_blank" rel="noopener noreferrer">
+                https://wetransfer.com/
+              </a>
+              |
+              <a
+                href="https://upload.photobox.com/en/#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://upload.photobox.com/en/#
+              </a>
+              |
+              <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer">
+                https://imgbb.com/
+              </a>
+              | Or others.
             </p>
             <input
               type="text"
@@ -528,6 +567,7 @@
       const statusNode = document.getElementById("status");
       const hostOtherRadio = document.getElementById("host-other");
       const hostOtherText = document.getElementById("hostOtherText");
+      const hostOtherWrap = document.getElementById("hostOtherWrap");
 
       function setStatus(message, type) {
         statusNode.textContent = message;
@@ -537,6 +577,13 @@
       function syncOtherFieldRequirement() {
         const isOtherSelected = hostOtherRadio.checked;
         hostOtherText.required = isOtherSelected;
+
+        if (isOtherSelected) {
+          hostOtherWrap.classList.add("visible");
+        } else {
+          hostOtherWrap.classList.remove("visible");
+          hostOtherText.value = "";
+        }
       }
 
       form.addEventListener("change", syncOtherFieldRequirement);
