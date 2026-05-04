@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Registration Form</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20ESN%20AISBL.png"
+    />
     <style>
       :root {
         --esn-pink: #ec4899;
@@ -317,13 +322,7 @@
         width: 100%;
         padding: 1rem;
         background:
-          linear-gradient(
-            90deg,
-            var(--esn-pink) 0 16%,
-            var(--esn-orange) 16% 40%,
-            var(--esn-green) 40% 64%,
-            var(--esn-blue) 64% 100%
-          );
+          linear-gradient(135deg, #16366f 0%, #2153b5 55%, #2d6cdf 100%);
         color: white;
         border: none;
         border-radius: 18px;
@@ -334,11 +333,12 @@
         cursor: pointer;
         transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
         margin-top: 2rem;
-        box-shadow: 0 18px 32px rgba(37, 99, 235, 0.22);
+        box-shadow: 0 18px 32px rgba(33, 83, 181, 0.24);
       }
 
       button[type="submit"]:hover {
         transform: translateY(-1px);
+        box-shadow: 0 20px 36px rgba(33, 83, 181, 0.3);
       }
 
       button[type="submit"]:disabled {
