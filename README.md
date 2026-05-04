@@ -16,14 +16,14 @@
 
 ## GitHub Pages
 
-В проект добавлен workflow для автодеплоя через GitHub Pages:
+Для этого проекта не нужен GitHub Actions workflow.
 
-- файл: `.github/workflows/deploy-gh-pages.yml`
-- деплой запускается автоматически при push в `main`
-
-Чтобы включить Pages в репозитории:
+Сайт уже готов для самого простого варианта GitHub Pages:
 
 1. Откройте `Settings -> Pages`
 2. В `Source` выберите `Deploy from a branch`
-3. Выберите ветку `gh-pages` и папку `/ (root)`
-4. После следующего push сайт будет опубликован автоматически
+3. Выберите ветку `main`
+4. Выберите папку `/ (root)`
+5. Нажмите `Save`
+
+Так как [index.html](C:/Users/Богдан/Desktop/static_form/index.html) уже лежит в корне репозитория, GitHub Pages сможет публиковать сайт напрямую без отдельной ветки и без workflow.
