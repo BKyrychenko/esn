@@ -8,7 +8,21 @@
 - `localhost` не нужен
 - можно открыть двойным кликом
 - форма отправляет данные напрямую в ваш Google Form через `formResponse`
+- проект готов к деплою через GitHub Pages
 
 ## Запуск
 
 Откройте [index.html](C:/Users/Богдан/Desktop/static_form/index.html) в браузере.
+
+## GitHub Pages
+
+В проект добавлен workflow для автодеплоя через GitHub Pages:
+
+- файл: `.github/workflows/deploy-pages.yml`
+- деплой запускается автоматически при push в `main`
+
+Чтобы включить Pages в репозитории:
+
+1. Откройте `Settings -> Pages`
+2. В `Source` выберите `GitHub Actions`
+3. После следующего push сайт будет опубликован автоматически
