@@ -1,6 +1,19 @@
-# ESN Geel Registration Form
+<p align="center">
+  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20ESN%20AISBL.png" alt="Erasmus Student Network logo" height="120" />
+</p>
 
-ESNcard online registration form for ESN Geel, built with React + Vite + Tailwind CSS. On submit, it posts directly to a Google Form's `formResponse` endpoint client-side — no backend is required.
+<h1 align="center">ESN Geel Registration Form</h1>
+
+<p align="center">
+  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" />
+  <img alt="oxlint" src="https://img.shields.io/badge/Lint-oxlint-000000" />
+</p>
+
+ESNcard online registration form for ESN Geel. On submit, it posts directly to a Google Form's
+`formResponse` endpoint client-side — no backend is required.
 
 ## Development
 
@@ -24,15 +37,35 @@ The form field IDs (`entry.*`) and the target Google Form URL live in
 Google Form changes, update the values there — they must match the Form's field entry IDs
 exactly, which you can find by inspecting the Form's own HTML/prefilled link.
 
-## Project structure
+## File structure
 
-- `src/lib/formSchema.ts` — shared field schema types (text/date, radio group with an optional
-  "Other" free-text option, single-radio acknowledgements)
-- `src/lib/useGoogleFormSubmit.ts` — reusable submit hook (validates, posts via `fetch`, tracks
-  status) for posting any form to a Google Form endpoint
-- `src/components/FormField.tsx` — generic field renderer driven by the schema above
-- `src/forms/esncard/` — the ESNcard registration form itself: its field schema, hero header, and
-  form component
+```
+esn/
+├── index.html                       Vite entry HTML
+├── public/
+│   └── favicon.ico                  ESN star icon (browser tab + footer badge)
+└── src/
+    ├── main.tsx                     React root
+    ├── App.tsx                      Page shell/layout: brand strip, logo, socials, card, footer
+    ├── index.css                    Tailwind entry + ESN color theme tokens
+    ├── components/
+    │   ├── FormField.tsx            Generic field renderer (text/date, radio group, acknowledge)
+    │   ├── BrandStrip.tsx           Repeating 4-color ESN strip at the top of the page
+    │   ├── SocialLinks.tsx          Facebook/Instagram icon buttons
+    │   └── Footer.tsx               "About us" section
+    ├── forms/esncard/
+    │   ├── esncardSchema.ts         Field definitions + Google Form entry IDs/action URL
+    │   ├── EsncardHero.tsx          Card header (title, badge, intro copy)
+    │   └── EsncardForm.tsx          Assembles FormField components into the full form
+    └── lib/
+        ├── formSchema.ts            Shared TypeScript field schema types
+        └── useGoogleFormSubmit.ts   Submit hook (validates, posts via fetch, tracks status)
+```
 
-The schema/hook/component split is intentional — future ESN forms can reuse `FormField` and
-`useGoogleFormSubmit` instead of hand-building a new form from scratch.
+The schema/hook/component split under `lib/` and `components/` is intentional — future ESN forms
+can reuse `FormField` and `useGoogleFormSubmit` instead of hand-building a new form from scratch;
+only `forms/esncard/` is specific to this one form.
+
+## License
+
+[MIT](LICENSE)
