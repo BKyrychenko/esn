@@ -21,15 +21,24 @@ export function useGoogleFormSubmit(actionUrl: string) {
       setIsSubmitting(true)
       try {
         const formData = new FormData(form)
-        await fetch(actionUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: formData,
-        })
+
+        if (import.meta.env.DEV) {
+          console.info(
+            '[dev] Skipping real Google Forms submission — payload that would have been sent:',
+            Object.fromEntries(formData.entries()),
+          )
+          await new Promise((resolve) => setTimeout(resolve, 400))
+        } else {
+          await fetch(actionUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData,
+          })
+        }
 
         setStatus({
           type: 'success',
-          message: 'Form submitted. Please check the next Google Forms screen.',
+          message: "Thanks — your registration has been submitted. We'll be in touch if we need anything else.",
         })
         return true
       } catch (error) {

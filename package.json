@@ -2,6 +2,7 @@
   "name": "esn",
   "private": true,
   "version": "0.0.0",
+  "description": "ESN Geel registration form site, posting directly to Google Forms.",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -5,6 +5,7 @@ export type TextFieldSchema = {
   label: string
   required?: boolean
   placeholder?: string
+  autoComplete?: string
 }
 
 export type RadioOption = {

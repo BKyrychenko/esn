@@ -13,5 +13,5 @@
 }
 
 body {
-  @apply text-ink bg-white;
+  @apply font-sans text-ink;
 }

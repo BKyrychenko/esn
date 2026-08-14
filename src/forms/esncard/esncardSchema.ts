@@ -14,6 +14,7 @@ export const esncardNameFields: FieldSchema[] = [
     label: 'First Name',
     placeholder: 'e.g., John',
     required: true,
+    autoComplete: 'given-name',
   },
   {
     type: 'text',
@@ -22,6 +23,7 @@ export const esncardNameFields: FieldSchema[] = [
     label: 'Last Name',
     placeholder: 'e.g., De Graef',
     required: true,
+    autoComplete: 'family-name',
   },
 ]
 
@@ -40,6 +42,7 @@ export const esncardDetailFields: FieldSchema[] = [
     name: 'entry.2042252171',
     label: 'Birthdate',
     required: true,
+    autoComplete: 'bday',
   },
 ]
 

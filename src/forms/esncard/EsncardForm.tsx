@@ -23,11 +23,19 @@ const statusColor = {
   error: 'text-error',
 } as const
 
+const sectionKicker = 'mb-3 text-xs font-semibold tracking-wide text-esn-blue uppercase'
+const section = 'border-t border-slate-200 pt-6 mt-6 first:mt-0 first:border-0 first:pt-0'
+
 export function EsncardForm() {
   const formRef = useRef<HTMLFormElement>(null)
   const [hostUniversity, setHostUniversity] = useState('')
   const [hostUniversityOther, setHostUniversityOther] = useState('')
+  const [isFormValid, setIsFormValid] = useState(false)
   const { submit, status, isSubmitting } = useGoogleFormSubmit(ESNCARD_FORM_ACTION)
+
+  function syncFormValidity() {
+    setIsFormValid(formRef.current?.checkValidity() ?? false)
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -36,24 +44,33 @@ export function EsncardForm() {
       event.currentTarget.reset()
       setHostUniversity('')
       setHostUniversityOther('')
+      setIsFormValid(false)
     }
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} action={ESNCARD_FORM_ACTION} method="POST">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4">
-        {esncardNameFields.map((field) => (
-          <FormField key={field.id} field={field} />
-        ))}
-      </div>
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      onChange={syncFormValidity}
+      onInput={syncFormValidity}
+      action={ESNCARD_FORM_ACTION}
+      method="POST"
+    >
+      <section className={section}>
+        <p className={sectionKicker}>Personal details</p>
+        <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+          {esncardNameFields.map((field) => (
+            <FormField key={field.id} field={field} />
+          ))}
+          {esncardDetailFields.map((field) => (
+            <FormField key={field.id} field={field} />
+          ))}
+        </div>
+      </section>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4">
-        {esncardDetailFields.map((field) => (
-          <FormField key={field.id} field={field} />
-        ))}
-      </div>
-
-      <div className="mb-6">
+      <section className={section}>
+        <p className={sectionKicker}>Host university</p>
         <p className="mb-3 text-sm text-muted">The university where you are doing your mobility.</p>
         <FormField
           field={hostUniversityField}
@@ -62,43 +79,49 @@ export function EsncardForm() {
           otherValue={hostUniversityOther}
           onOtherChange={setHostUniversityOther}
         />
-      </div>
+      </section>
 
-      <div className="mb-6">
-        <p className="mb-3 text-sm leading-relaxed text-muted">
-          To make the ESNcard online we need to be sure that you are an International Student in
-          the Kempen (Geel, Turnhout or Vorselaar), therefore we require you to upload a proof so
-          we can proceed with your card. For example: A print screen of the
-          confirmation/acceptance email is enough. Please provide a link with such document. You
-          can use upload services like:
+      <section className={section}>
+        <p className={sectionKicker}>Proof of exchange</p>
+        <p className="mb-3 text-sm text-muted">
+          We need to confirm you're an international student in the Kempen (Geel, Turnhout or
+          Vorselaar) before issuing your card. A screenshot of your acceptance/confirmation email
+          is enough — upload it to one of these services and paste the link below.
         </p>
-        <div className="mb-4 flex flex-wrap gap-x-4 gap-y-2.5">
+        <div className="mb-4 flex flex-wrap gap-2">
           {proofUploadLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-esn-blue/12 bg-esn-blue/8 px-2.5 py-1.5 font-semibold text-esn-blue no-underline hover:bg-esn-blue/14"
+              className="rounded-md border border-slate-200 px-2.5 py-1 text-xs font-medium text-esn-blue hover:bg-slate-50"
             >
               {link.label}
             </a>
           ))}
         </div>
         <FormField field={proofLinkField} />
-      </div>
+      </section>
 
-      <FormField field={gdprField} />
-      <FormField field={paymentAwareField} />
+      <section className={section}>
+        <p className={sectionKicker}>Confirmation</p>
+        <FormField field={gdprField} />
+        <FormField field={paymentAwareField} />
+      </section>
 
       <button
         type="submit"
-        disabled={isSubmitting}
-        className="mt-8 w-full rounded-2xl bg-[linear-gradient(135deg,#16366f_0%,#2153b5_55%,#2d6cdf_100%)] py-4 text-base font-extrabold tracking-wide text-white uppercase shadow-[0_18px_32px_rgba(33,83,181,0.24)] transition hover:-translate-y-px hover:shadow-[0_20px_36px_rgba(33,83,181,0.3)] disabled:cursor-progress disabled:opacity-70"
+        disabled={!isFormValid || isSubmitting}
+        className={`mt-8 w-full rounded-lg py-3 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+          isFormValid && !isSubmitting
+            ? 'bg-esn-blue text-white hover:bg-esn-blue/90 focus-visible:outline-esn-blue'
+            : 'cursor-not-allowed bg-slate-200 text-slate-400'
+        } ${isSubmitting ? 'cursor-progress' : ''}`}
       >
-        Get My ESNcard
+        {isSubmitting ? 'Submitting…' : 'Get My ESNcard'}
       </button>
-      <p role="status" aria-live="polite" className={`mt-4 text-sm ${statusColor[status.type]}`}>
+      <p role="status" aria-live="polite" className={`mt-3 text-sm ${statusColor[status.type]}`}>
         {status.message}
       </p>
     </form>

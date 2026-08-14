@@ -1,9 +1,15 @@
+import { useId, useState, type ChangeEvent, type FocusEvent } from 'react'
 import type { FieldSchema } from '../lib/formSchema'
 
-const inputClasses =
-  'w-full rounded-2xl border border-ink/10 bg-white/95 px-4 py-3.5 text-base transition duration-200 focus:-translate-y-px focus:border-esn-blue/45 focus:shadow-[0_0_0_4px_rgba(37,99,235,0.12)] focus:outline-none'
+const requiredMark = "after:ml-0.5 after:text-error after:content-['*']"
 
-const requiredLabelClasses = "after:ml-1 after:text-error after:content-['*']"
+const inputBase =
+  'w-full rounded-lg border bg-white px-4 py-3 text-base text-ink placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-esn-blue/30'
+const inputValid = 'border-slate-300 focus:border-esn-blue'
+const inputInvalid = 'border-error focus:border-error focus:ring-error/25'
+
+const optionRow =
+  'flex cursor-pointer items-center gap-3 px-4 py-3 transition-colors hover:bg-slate-50'
 
 type Props = {
   field: FieldSchema
@@ -14,17 +20,33 @@ type Props = {
 }
 
 export function FormField({ field, value, otherValue, onChange, onOtherChange }: Props) {
+  const [error, setError] = useState<string | null>(null)
+  const errorId = useId()
+
+  function handleBlur(event: FocusEvent<HTMLInputElement>) {
+    const input = event.currentTarget
+    setError(input.validity.valid ? null : input.validationMessage)
+  }
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    if (error !== null) {
+      const input = event.currentTarget
+      setError(input.validity.valid ? null : input.validationMessage)
+    }
+  }
+
   if (field.type === 'radio-group') {
     return (
-      <div className="mb-6">
-        <label className={`mb-2 block text-sm font-bold text-ink ${field.required ? requiredLabelClasses : ''}`}>
+      <fieldset className="mb-6">
+        <legend className={`mb-2 text-sm font-medium text-ink ${field.required ? requiredMark : ''}`}>
           {field.label}
-        </label>
-        <div className="space-y-3">
+        </legend>
+        <div className="divide-y divide-slate-200 rounded-lg border border-slate-300">
           {field.options.map((option) => (
-            <div
+            <label
               key={option.value}
-              className="flex items-start gap-3 rounded-2xl border border-ink/10 bg-gradient-to-br from-white/95 to-[#f7faff]/90 p-4"
+              htmlFor={`${field.id}-${option.value}`}
+              className={`${optionRow} ${value === option.value ? 'bg-esn-blue/5' : ''}`}
             >
               <input
                 type="radio"
@@ -34,61 +56,51 @@ export function FormField({ field, value, otherValue, onChange, onOtherChange }:
                 required={field.required}
                 checked={value === option.value}
                 onChange={() => onChange?.(option.value)}
-                className="mt-1 h-[1.1rem] w-[1.1rem] cursor-pointer accent-esn-blue"
+                className="h-5 w-5 cursor-pointer accent-esn-blue"
               />
-              <label
-                htmlFor={`${field.id}-${option.value}`}
-                className="cursor-pointer text-sm font-medium text-ink"
-              >
-                {option.label}
-              </label>
-            </div>
+              <span className="text-sm text-ink">{option.label}</span>
+            </label>
           ))}
         </div>
         {field.other && value === field.other.value && (
           <div className="mt-3">
             <input
               type="text"
-              name={field.other.otherName}
               placeholder={field.other.placeholder}
+              name={field.other.otherName}
               required
               value={otherValue ?? ''}
               onChange={(event) => onOtherChange?.(event.target.value)}
-              className={inputClasses}
+              className={`${inputBase} ${inputValid}`}
             />
           </div>
         )}
-      </div>
+      </fieldset>
     )
   }
 
   if (field.type === 'acknowledge') {
     return (
-      <div className="mb-6 flex items-start gap-3 rounded-2xl border border-ink/10 bg-gradient-to-br from-white/95 to-[#f7faff]/90 p-4">
+      <label
+        htmlFor={field.id}
+        className={`${optionRow} mb-4 rounded-lg border border-slate-300 last:mb-0`}
+      >
         <input
           type="radio"
           id={field.id}
           name={field.name}
           value={field.value}
           required={field.required}
-          className="mt-1 h-[1.1rem] w-[1.1rem] cursor-pointer accent-esn-blue"
+          className="mt-0.5 h-5 w-5 cursor-pointer accent-esn-blue"
         />
-        <label
-          htmlFor={field.id}
-          className={`cursor-pointer text-sm font-medium text-ink ${field.required ? requiredLabelClasses : ''}`}
-        >
-          {field.label}
-        </label>
-      </div>
+        <span className={`text-sm text-ink ${field.required ? requiredMark : ''}`}>{field.label}</span>
+      </label>
     )
   }
 
   return (
-    <div className="mb-6">
-      <label
-        htmlFor={field.id}
-        className={`mb-2 block text-sm font-bold text-ink ${field.required ? requiredLabelClasses : ''}`}
-      >
+    <div className="mb-5">
+      <label htmlFor={field.id} className={`mb-1.5 block text-sm font-medium text-ink ${field.required ? requiredMark : ''}`}>
         {field.label}
       </label>
       <input
@@ -97,8 +109,18 @@ export function FormField({ field, value, otherValue, onChange, onOtherChange }:
         name={field.name}
         placeholder={field.placeholder}
         required={field.required}
-        className={inputClasses}
+        autoComplete={field.autoComplete}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        className={`${inputBase} ${error ? inputInvalid : inputValid}`}
       />
+      {error && (
+        <p id={errorId} role="alert" className="mt-1.5 text-sm text-error">
+          {error}
+        </p>
+      )}
     </div>
   )
 }
