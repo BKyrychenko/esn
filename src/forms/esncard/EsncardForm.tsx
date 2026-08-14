@@ -119,7 +119,7 @@ export function EsncardForm() {
             : 'cursor-not-allowed bg-slate-200 text-slate-400'
         } ${isSubmitting ? 'cursor-progress' : ''}`}
       >
-        {isSubmitting ? 'Submitting…' : 'Get My ESNcard'}
+        {isSubmitting ? 'Submitting…' : 'Submit'}
       </button>
       <p role="status" aria-live="polite" className={`mt-3 text-sm ${statusColor[status.type]}`}>
         {status.message}
