@@ -11,6 +11,8 @@ const inputInvalid = 'border-error focus:border-error focus:ring-error/25'
 const optionRow =
   'flex cursor-pointer items-center gap-3 px-4 py-3 transition-colors hover:bg-slate-50'
 
+const numberPrefixClasses = 'mr-1.5 font-semibold text-esn-blue'
+
 type Props = {
   field: FieldSchema
   value?: string
@@ -39,6 +41,7 @@ export function FormField({ field, value, otherValue, onChange, onOtherChange }:
     return (
       <fieldset className="mb-6">
         <legend className={`mb-2 text-sm font-medium text-ink ${field.required ? requiredMark : ''}`}>
+          {field.number && <span className={numberPrefixClasses}>{field.number}</span>}
           {field.label}
         </legend>
         <div className="divide-y divide-slate-200 rounded-lg border border-slate-300">
@@ -93,7 +96,10 @@ export function FormField({ field, value, otherValue, onChange, onOtherChange }:
           required={field.required}
           className="mt-0.5 h-5 w-5 cursor-pointer accent-esn-blue"
         />
-        <span className={`text-sm text-ink ${field.required ? requiredMark : ''}`}>{field.label}</span>
+        <span className={`text-sm text-ink ${field.required ? requiredMark : ''}`}>
+          {field.number && <span className={numberPrefixClasses}>{field.number}</span>}
+          {field.label}
+        </span>
       </label>
     )
   }
@@ -101,6 +107,7 @@ export function FormField({ field, value, otherValue, onChange, onOtherChange }:
   return (
     <div className="mb-5">
       <label htmlFor={field.id} className={`mb-1.5 block text-sm font-medium text-ink ${field.required ? requiredMark : ''}`}>
+        {field.number && <span className={numberPrefixClasses}>{field.number}</span>}
         {field.label}
       </label>
       <input

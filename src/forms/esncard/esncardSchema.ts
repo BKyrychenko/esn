@@ -12,6 +12,7 @@ export const esncardNameFields: FieldSchema[] = [
     id: 'firstName',
     name: 'entry.1642576935',
     label: 'First Name',
+    number: '1.1',
     placeholder: 'e.g., John',
     required: true,
     autoComplete: 'given-name',
@@ -21,6 +22,7 @@ export const esncardNameFields: FieldSchema[] = [
     id: 'lastName',
     name: 'entry.1677634720',
     label: 'Last Name',
+    number: '1.2',
     placeholder: 'e.g., De Graef',
     required: true,
     autoComplete: 'family-name',
@@ -33,6 +35,7 @@ export const esncardDetailFields: FieldSchema[] = [
     id: 'nationality',
     name: 'entry.879975281',
     label: 'Nationality',
+    number: '1.3',
     placeholder: 'e.g., Belgian',
     required: true,
   },
@@ -41,6 +44,7 @@ export const esncardDetailFields: FieldSchema[] = [
     id: 'dob',
     name: 'entry.2042252171',
     label: 'Birthdate',
+    number: '1.4',
     required: true,
     autoComplete: 'bday',
   },
@@ -51,6 +55,7 @@ export const hostUniversityField: FieldSchema = {
   id: HOST_UNIVERSITY_FIELD_ID,
   name: 'entry.1255840749',
   label: 'Host University',
+  number: '2.1',
   required: true,
   options: [
     {
@@ -72,6 +77,7 @@ export const proofLinkField: FieldSchema = {
   id: 'proofLink',
   name: 'entry.1189397582',
   label: 'Link with proof of exchange',
+  number: '3.1',
   placeholder: 'https://...',
   required: true,
 }

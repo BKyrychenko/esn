@@ -58,7 +58,7 @@ export function EsncardForm() {
       method="POST"
     >
       <section className={section}>
-        <p className={sectionKicker}>Personal details</p>
+        <p className={sectionKicker}>1. Personal details</p>
         <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
           {esncardNameFields.map((field) => (
             <FormField key={field.id} field={field} />
@@ -70,7 +70,7 @@ export function EsncardForm() {
       </section>
 
       <section className={section}>
-        <p className={sectionKicker}>Host university</p>
+        <p className={sectionKicker}>2. Host university</p>
         <p className="mb-3 text-sm text-muted">The university where you are doing your mobility.</p>
         <FormField
           field={hostUniversityField}
@@ -82,7 +82,7 @@ export function EsncardForm() {
       </section>
 
       <section className={section}>
-        <p className={sectionKicker}>Proof of exchange</p>
+        <p className={sectionKicker}>3. Proof of exchange</p>
         <p className="mb-3 text-sm text-muted">
           We need to confirm you're an international student in the Kempen (Geel, Turnhout or
           Vorselaar) before issuing your card. A screenshot of your acceptance/confirmation email

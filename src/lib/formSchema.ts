@@ -3,6 +3,7 @@ export type TextFieldSchema = {
   id: string
   name: string
   label: string
+  number?: string
   required?: boolean
   placeholder?: string
   autoComplete?: string
@@ -24,6 +25,7 @@ export type RadioGroupFieldSchema = {
   id: string
   name: string
   label: string
+  number?: string
   required?: boolean
   options: RadioOption[]
   other?: OtherOption
@@ -34,6 +36,7 @@ export type AcknowledgeFieldSchema = {
   id: string
   name: string
   label: string
+  number?: string
   value: string
   required?: boolean
 }
