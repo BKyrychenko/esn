@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20ESN%20AISBL.png" alt="Erasmus Student Network logo" height="120" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Logo_ESN_AISBL.png" alt="Erasmus Student Network logo" height="120" />
 </p>
 
 <h1 align="center">ESN Geel Registration Form</h1>
@@ -14,6 +14,10 @@
 
 ESNcard online registration form for ESN Geel. On submit, it posts directly to a Google Form's
 `formResponse` endpoint client-side — no backend is required.
+
+<p align="center">
+  <img src="public/demo.png" alt="Screenshot of the ESNcard registration form" width="700" />
+</p>
 
 ## Development
 

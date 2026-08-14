@@ -4,7 +4,7 @@ import { SocialLinks } from './components/SocialLinks'
 import { EsncardForm } from './forms/esncard/EsncardForm'
 import { EsncardHero } from './forms/esncard/EsncardHero'
 
-const ESN_LOGO_URL = 'https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20ESN%20AISBL.png'
+const ESN_LOGO_URL = 'https://upload.wikimedia.org/wikipedia/commons/3/35/Logo_ESN_AISBL.png'
 
 function App() {
   return (
