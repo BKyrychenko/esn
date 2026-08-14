@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-esn-pink: #ec4899;
+  --color-esn-orange: #f97316;
+  --color-esn-green: #22c55e;
+  --color-esn-blue: #2563eb;
+  --color-ink: #102033;
+  --color-muted: #5f6f86;
+  --color-error: #dc2626;
+
+  --font-sans: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  @apply text-ink bg-white;
+}

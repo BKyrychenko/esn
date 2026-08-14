@@ -1,29 +1,38 @@
-# Event Registration Form
+# ESN Geel Registration Form
 
-Готов standalone-вариант в одном файле: [index.html](C:/Users/Богдан/Desktop/static_form/index.html).
+ESNcard online registration form for ESN Geel, built with React + Vite + Tailwind CSS. On submit, it posts directly to a Google Form's `formResponse` endpoint client-side — no backend is required.
 
-## Что важно
+## Development
 
-- это обычный статический файл
-- `localhost` не нужен
-- можно открыть двойным кликом
-- форма отправляет данные напрямую в ваш Google Form через `formResponse`
-- проект готов к деплою через GitHub Pages
+```
+npm install
+npm run dev
+```
 
-## Запуск
+## Production build
 
-Откройте [index.html](C:/Users/Богдан/Desktop/static_form/index.html) в браузере.
+```
+npm run build
+```
 
-## GitHub Pages
+Outputs a static site to `dist/`, ready to be served by any static host.
 
-Для этого проекта не нужен GitHub Actions workflow.
+## Updating the Google Form
 
-Сайт уже готов для самого простого варианта GitHub Pages:
+The form field IDs (`entry.*`) and the target Google Form URL live in
+[`src/forms/esncard/esncardSchema.ts`](src/forms/esncard/esncardSchema.ts). If the underlying
+Google Form changes, update the values there — they must match the Form's field entry IDs
+exactly, which you can find by inspecting the Form's own HTML/prefilled link.
 
-1. Откройте `Settings -> Pages`
-2. В `Source` выберите `Deploy from a branch`
-3. Выберите ветку `main`
-4. Выберите папку `/ (root)`
-5. Нажмите `Save`
+## Project structure
 
-Так как [index.html](C:/Users/Богдан/Desktop/static_form/index.html) уже лежит в корне репозитория, GitHub Pages сможет публиковать сайт напрямую без отдельной ветки и без workflow.
+- `src/lib/formSchema.ts` — shared field schema types (text/date, radio group with an optional
+  "Other" free-text option, single-radio acknowledgements)
+- `src/lib/useGoogleFormSubmit.ts` — reusable submit hook (validates, posts via `fetch`, tracks
+  status) for posting any form to a Google Form endpoint
+- `src/components/FormField.tsx` — generic field renderer driven by the schema above
+- `src/forms/esncard/` — the ESNcard registration form itself: its field schema, hero header, and
+  form component
+
+The schema/hook/component split is intentional — future ESN forms can reuse `FormField` and
+`useGoogleFormSubmit` instead of hand-building a new form from scratch.
