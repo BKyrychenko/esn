@@ -1,29 +1,75 @@
-# Event Registration Form
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Logo_ESN_AISBL.png" alt="Erasmus Student Network logo" height="120" />
+</p>
 
-Готов standalone-вариант в одном файле: [index.html](C:/Users/Богдан/Desktop/static_form/index.html).
+<h1 align="center">ESN Geel Registration Form</h1>
 
-## Что важно
+<p align="center">
+  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" />
+  <img alt="oxlint" src="https://img.shields.io/badge/Lint-oxlint-000000" />
+</p>
 
-- это обычный статический файл
-- `localhost` не нужен
-- можно открыть двойным кликом
-- форма отправляет данные напрямую в ваш Google Form через `formResponse`
-- проект готов к деплою через GitHub Pages
+ESNcard online registration form for ESN Geel. On submit, it posts directly to a Google Form's
+`formResponse` endpoint client-side — no backend is required.
 
-## Запуск
+<p align="center">
+  <img src="public/demo.png" alt="Screenshot of the ESNcard registration form" width="700" />
+</p>
 
-Откройте [index.html](C:/Users/Богдан/Desktop/static_form/index.html) в браузере.
+## Development
 
-## GitHub Pages
+```
+npm install
+npm run dev
+```
 
-Для этого проекта не нужен GitHub Actions workflow.
+## Production build
 
-Сайт уже готов для самого простого варианта GitHub Pages:
+```
+npm run build
+```
 
-1. Откройте `Settings -> Pages`
-2. В `Source` выберите `Deploy from a branch`
-3. Выберите ветку `main`
-4. Выберите папку `/ (root)`
-5. Нажмите `Save`
+Outputs a static site to `dist/`, ready to be served by any static host.
 
-Так как [index.html](C:/Users/Богдан/Desktop/static_form/index.html) уже лежит в корне репозитория, GitHub Pages сможет публиковать сайт напрямую без отдельной ветки и без workflow.
+## Updating the Google Form
+
+The form field IDs (`entry.*`) and the target Google Form URL live in
+[`src/forms/esncard/esncardSchema.ts`](src/forms/esncard/esncardSchema.ts). If the underlying
+Google Form changes, update the values there — they must match the Form's field entry IDs
+exactly, which you can find by inspecting the Form's own HTML/prefilled link.
+
+## File structure
+
+```
+esn/
+├── index.html                       Vite entry HTML
+├── public/
+│   └── favicon.ico                  ESN star icon (browser tab + footer badge)
+└── src/
+    ├── main.tsx                     React root
+    ├── App.tsx                      Page shell/layout: brand strip, logo, socials, card, footer
+    ├── index.css                    Tailwind entry + ESN color theme tokens
+    ├── components/
+    │   ├── FormField.tsx            Generic field renderer (text/date, radio group, acknowledge)
+    │   ├── BrandStrip.tsx           Repeating 4-color ESN strip at the top of the page
+    │   ├── SocialLinks.tsx          Facebook/Instagram icon buttons
+    │   └── Footer.tsx               "About us" section
+    ├── forms/esncard/
+    │   ├── esncardSchema.ts         Field definitions + Google Form entry IDs/action URL
+    │   ├── EsncardHero.tsx          Card header (title, badge, intro copy)
+    │   └── EsncardForm.tsx          Assembles FormField components into the full form
+    └── lib/
+        ├── formSchema.ts            Shared TypeScript field schema types
+        └── useGoogleFormSubmit.ts   Submit hook (validates, posts via fetch, tracks status)
+```
+
+The schema/hook/component split under `lib/` and `components/` is intentional — future ESN forms
+can reuse `FormField` and `useGoogleFormSubmit` instead of hand-building a new form from scratch;
+only `forms/esncard/` is specific to this one form.
+
+## License
+
+[MIT](LICENSE)
